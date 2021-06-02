@@ -3,29 +3,22 @@ package com.application.spring.mongo.api.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-//@Getter
-//@Setter
-//@ToString
 
 @Document(collection = "Registration")
 public class Registration {
 
     @Id
-    private String id;
+    private String adNo;
     private String name;
     private String dob;
     private String classOption;
     private String divisionOption;
     private String gender;
 	public String getId() {
-		return id;
+		return adNo;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.adNo = id;
 	}
 	public String getName() {
 		return name;
@@ -59,7 +52,7 @@ public class Registration {
 	}
 	@Override
 	public String toString() {
-		return "Registration [id=" + id + ", name=" + name + ", dob=" + dob + ", classOption=" + classOption
+		return "Registration [id=" + adNo + ", name=" + name + ", dob=" + dob + ", classOption=" + classOption
 				+ ", divisionOption=" + divisionOption + ", gender=" + gender + "]";
 	}
     

@@ -1,13 +1,12 @@
 package com.application.spring.mongo.api.controller;
 
+
 import java.util.List;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.data.domain.Sort;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,27 +20,36 @@ public class Registrationcontroller {
 
 	@Autowired
 	private Registrationrepository repository;
+	
 
 	@PostMapping("/addStudent")
-	public String savestudent(@RequestBody Registration reg) {
-	    repository.save(reg);
+	public String savestudent(@RequestBody Registration reg, BindingResult br) {
+	   if(br.hasErrors())
+	   {
+		  
+		   return "make correct options...";
+	   }
+	   else {
+		   long n=repository.count();
+			  if(n<10)
+			  {
+				  reg.setId("R-00"+n);
+			  }
+			  else
+			  {
+				  reg.setId("R-0"+n);
+			  }
+		   
+		repository.save(reg);
 		return "Added " ;
+	   }
 	}
 
 	@GetMapping("/findAllStudents")
 	public List<Registration> getStudents() {
-		return repository.findAll();
+		return repository.findAll(Sort.by(Sort.Direction.ASC,"name"));
 	}
 
-	/*@GetMapping("/findAllStudents/{id}")
-	public Optional<Registration> getStudents(@PathVariable int id) {
-		return repository.findById(id);
-	}*/
-
-	/*@DeleteMapping("/delete/{id}")
-	public String deleteBook(@PathVariable int id) {
-		repository.deleteById(id);
-		return "book deleted with id : " + id;
-	}*/
+	
 
 }

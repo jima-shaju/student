@@ -11,6 +11,7 @@ const intialState = {
   dobValid: "",
   classValid: "",
   divisionValid: "",
+  gendervalid: "",
   student: [],
 };
 class Studentform extends Component {
@@ -21,6 +22,7 @@ class Studentform extends Component {
     let dobValid = "";
     let classValid = "";
     let divisionValid = "";
+    let gendervalid = "";
 
     if (!this.state.name) {
       nameValid = "name cannot be blank";
@@ -36,8 +38,17 @@ class Studentform extends Component {
     if (!this.state.divisionOption) {
       divisionValid = " cannot be blank";
     }
-    if (nameValid || dobValid || classValid || divisionValid) {
-      this.setState({ nameValid, dobValid, classValid, divisionValid });
+    if (!this.state.gender) {
+      gendervalid = "please select gender..";
+    }
+    if (nameValid || dobValid || classValid || divisionValid || gendervalid) {
+      this.setState({
+        nameValid,
+        dobValid,
+        classValid,
+        divisionValid,
+        gendervalid,
+      });
       return false;
     }
     return true;
@@ -82,8 +93,9 @@ class Studentform extends Component {
       Services.createStudent(set).then((res) => {
         console.log(res);
       });
-      this.setState(intialState);
       alert("submit successfully.......");
+      this.componentDidMount();
+      this.setState(intialState);
     }
   };
   componentDidMount() {
@@ -144,102 +156,18 @@ class Studentform extends Component {
                     onChange={this.handleClassChange}
                   >
                     <option>Open this select menu</option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="1"
-                    >
-                      I
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="2"
-                    >
-                      II
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="3"
-                    >
-                      III
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="4"
-                    >
-                      IV
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="5"
-                    >
-                      V
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="6"
-                    >
-                      VI
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="7"
-                    >
-                      VII
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="8"
-                    >
-                      VIII
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="9"
-                    >
-                      IX
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="10"
-                    >
-                      X
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="11"
-                    >
-                      XI
-                    </option>
-                    <option
-                      selected
-                      value={this.state.classOption}
-                      onChange={this.handleClassChange}
-                      value="12"
-                    >
-                      XII
-                    </option>
+                    <option value="I">I</option>
+                    <option value="II">II</option>
+                    <option value="III">III</option>
+                    <option value="IV">IV</option>
+                    <option value="V">V</option>
+                    <option value="VI">VI</option>
+                    <option value="VII">VII</option>
+                    <option value="VIII">VIII</option>
+                    <option value="IX">IX</option>
+                    <option value="X">X</option>
+                    <option value="XI">XI</option>
+                    <option value="XII">XII</option>
                   </select>
                   {this.state.classValid}
                 </div>
@@ -254,30 +182,9 @@ class Studentform extends Component {
                     onChange={this.handleDivisionChange}
                   >
                     <option>Open this select menu</option>
-                    <option
-                      selected
-                      value={this.state.divisionOption}
-                      onChange={this.handleDivisionChange}
-                      value="a"
-                    >
-                      A
-                    </option>
-                    <option
-                      selected
-                      value={this.state.divisionOption}
-                      onChange={this.handleDivisionChange}
-                      value="b"
-                    >
-                      B
-                    </option>
-                    <option
-                      selected
-                      value={this.state.divisionOption}
-                      onChange={this.handleDivisionChange}
-                      value="c"
-                    >
-                      C
-                    </option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
                   </select>
                   {this.state.divisionValid}
                 </div>
@@ -304,6 +211,9 @@ class Studentform extends Component {
                   FeMale
                 </label>
               </div>
+              <div style={{ fontSize: 12, color: "red" }}>
+                {this.state.gendervalid}
+              </div>
               <div className="d-flex justify-content-center">
                 <button
                   type="submit"
@@ -318,6 +228,7 @@ class Studentform extends Component {
             <table className=" table responsive-table ">
               <thead>
                 <tr>
+                  <th>AD.NO</th>
                   <th> Name </th>
                   <th> DOB </th>
                   <th> class </th>
@@ -329,6 +240,7 @@ class Studentform extends Component {
               <tbody>
                 {this.state.student.map((stud) => (
                   <tr key={stud.id}>
+                    <td>{stud.id}</td>
                     <td>{stud.name}</td>
                     <td>{stud.dob}</td>
                     <td>{stud.classOption}</td>
