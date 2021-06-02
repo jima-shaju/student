@@ -93,7 +93,7 @@ class Studentform extends Component {
       Services.createStudent(set).then((res) => {
         console.log(res);
       });
-      alert("submit successfully.......");
+      alert("submit successfully...");
       this.componentDidMount();
       this.setState(intialState);
     }
