@@ -15,7 +15,10 @@ const intialState = {
   student: [],
 };
 class Studentform extends Component {
-  state = intialState;
+  constructor(props) {
+    super(props);
+    this.state = intialState;
+  }
 
   formValidation = () => {
     let nameValid = "";
@@ -94,14 +97,17 @@ class Studentform extends Component {
         console.log(res);
       });
       alert("submit successfully...");
-      this.componentDidMount();
       this.setState(intialState);
+      this.getdetails();
     }
   };
-  componentDidMount() {
+  getdetails() {
     Services.getStudents().then((res) => {
       this.setState({ student: res.data });
     });
+  }
+  componentDidMount() {
+    this.getdetails();
   }
   render() {
     return (

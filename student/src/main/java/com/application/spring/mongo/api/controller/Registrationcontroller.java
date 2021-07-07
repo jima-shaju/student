@@ -33,11 +33,11 @@ public class Registrationcontroller {
 		   long n=repository.count();
 			  if(n<10)
 			  {
-				  reg.setId("R-00"+n);
+				  reg.setId("R-00"+(n+1));
 			  }
 			  else
 			  {
-				  reg.setId("R-0"+n);
+				  reg.setId("R-0"+(n+1));
 			  }
 		   
 		repository.save(reg);
